@@ -6,7 +6,7 @@
 job="$1"
 re="$2"
 
-JENKINS="https://sonic-jenkins.westus.cloudapp.azure.com"
+JENKINS="https://sonic-jenkins.westus2.cloudapp.azure.com"
 URL="$JENKINS/job/$job/lastSuccessfulBuild"
 
 set -x
