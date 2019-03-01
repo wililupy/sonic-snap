@@ -118,7 +118,7 @@ parts:
       wget `./get-debs "p4/job/sonic-swss-build" "swss"`
 
       # this comes from a common job, so might have to go into common-debs
-      wget `./get-debs "common/job/thrift-build" "libthrift-0.9.3"`
+      wget `./get-debs "broadcom/job/buildimage-brcm-all" "libthrift-0.9.3"`
 
       # Ubuntu doesn't have the same SONAMEs for libboost
       for deb in main/b/boost1.55/libboost-program-options1.55.0_1.55.0+dfsg-3_amd64.deb main/b/boost1.55/libboost-thread1.55.0_1.55.0+dfsg-3_amd64.deb main/b/boost1.55/libboost-system1.55.0_1.55.0+dfsg-3_amd64.deb; do
