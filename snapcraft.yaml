@@ -35,7 +35,8 @@ parts:
     build-packages: [httpie, jq, wget]
     # dep of redis
     stage-packages: [libjemalloc1]
-    install: |
+    override-build: |
+      snapcraftctl build
       # TODO this should be a plugin; currently doesn't fail on missing debs
       # and doesn't resolve dependencies
 
@@ -69,7 +70,8 @@ parts:
     plugin: nil
     # deps of get-debs helper
     build-packages: [httpie, jq, wget]
-    install: |
+    override-build: |
+      snapcraftctl build
       # TODO this should be a plugin; currently doesn't fail on missing debs
       # and doesn't resolve dependencies
       job="broadcom/job/buildimage-brcm-all"
@@ -85,12 +87,7 @@ parts:
           $SNAPCRAFT_PART_INSTALL/broadcom/usr/bin/* \
           $SNAPCRAFT_PART_INSTALL/broadcom/usr/lib/*/*.so.*
 
-      # replace absolute /etc/bcm/foo pathnames with relative ones e.g.
-      # bcm-configs/foo
-      sed -i '/^SAI_INIT_CONFIG_FILE=/s#=/etc/bcm/#=bcm-configs/#' \
-          $SNAPCRAFT_PART_INSTALL/broadcom/etc/syncd.d/*
-
-    stage:
+     stage:
       - broadcom/etc/bcm/*
       - broadcom/etc/syncd.d/*
       - broadcom/etc/swss/*
@@ -98,15 +95,15 @@ parts:
       - broadcom/usr/lib/*.so.*
       - broadcom/usr/lib/*/*.so.*
       - broadcom/usr/bin/*
-      - broadcom/usr/share/sonic
-
+      
   p4-backend:
     plugin: nil
     # deps of get-debs helper
     build-packages: [httpie, jq, wget]
     # deps of syncd
     stage-packages: [libjudydebian1, libnanomsg0]
-    install: |
+    override-build: |
+      snapcraftctl build
       # TODO this should be a plugin; currently doesn't fail on missing debs
       # and doesn't resolve dependencies
       wget `./get-debs "p4/job/p4c-bm" "python-p4c-bm"`
