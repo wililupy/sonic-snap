@@ -79,9 +79,6 @@ parts:
       wget `./get-debs "$job" "$debs_re"`
       for d in *.deb; do dpkg -x $d $SNAPCRAFT_PART_INSTALL/broadcom; done
 
-      # see https://github.com/Azure/SONiC/issues/52
-      ln -s libsai.so.1.0 $SNAPCRAFT_PART_INSTALL/broadcom/usr/lib/libsai.so.1
-
       # see https://github.com/Azure/SONiC/issues/51
       sed -i 's#/var/run/redis/redis\.sock#link-to-redis-socket.sock#g' \
           $SNAPCRAFT_PART_INSTALL/broadcom/usr/bin/* \
