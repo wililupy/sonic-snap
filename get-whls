@@ -1,0 +1,15 @@
+#!/bin/sh
+# returns a subset of the python wheels built by a job
+
+job="$1"
+re="$2"
+
+JENKINS="https://sonic-jenkins.westus2.cloudapp.azure.com"
+URL="$JENKINS/job/$job/lastSuccessfulBuild"
+
+set -x
+
+http "$URL/api/json?tree=artifacts[relativePath]" |
+    jq -r '.artifacts[]["relativePath"]' |
+    sed "s#^#$URL/artifact/#" |
+    grep -E "/${re}_.*\.whl$"
